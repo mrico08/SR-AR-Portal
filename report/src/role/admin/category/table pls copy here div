@@ -1,0 +1,30 @@
+                                <table>
+                                    <tbody>
+                                        {
+                                            data3.map((item,i) =>
+                                                <tr key={i}>
+                                                    <td>
+                                                        <div className="d-flex flex-column justify-content-center">
+                                                            <h6 className="mb-0 text-xs">Action</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="d-flex flex-column justify-content-center">
+                                                            <h6 className="mb-0 text-xs">{item.name}</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="d-flex flex-column justify-content-center">
+                                                            <h6 className="mb-0 text-xs">{item.type}</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="d-flex flex-column justify-content-center">
+                                                            <h6 className="mb-0 text-xs">{item.status}</h6>
+                                                        </div>
+                                                    </td>
+                                            </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </table>

@@ -1,0 +1,35 @@
+version: '3'
+services:
+  bom:
+    build:
+      context: ./report
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./report:/app/report
+      - /app/report/node_modules
+    restart: always
+    stdin_open: true
+    tty: true
+    depends_on:
+      - socketio-server
+    networks:
+      - report-networks
+
+  socketio-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "7001:7001"
+    volumes:
+      - ./server:/app/server
+      - /app/server/node_modules
+    restart: always
+    networks:
+      - report-networks
+
+networks:
+  report-networks:
+    driver: bridge
