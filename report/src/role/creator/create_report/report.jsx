@@ -4,7 +4,7 @@ import Recordlist from './recordlist';
 import Reportmodal from '../../../ucomponent/create_report/reportmodal';
 import LocalHost from '../../../portal/context';
 import SocketContext from '../../../portal/socket';
-
+ 
 
 function Report(){
     const socket = useContext(SocketContext);

@@ -8,20 +8,8 @@ function Companyname({sc_cname}){
     const jwttoken=credential[0];
 
     const [clist,sclist] = useState([]);
-    const gpartner = async (type1,search) =>{
-        let item = {type1,search}
-        let result = await fetch('http://'+local_host+'/api/auth/g_partnerenduser',{
-            method: 'POST',
-            body:JSON.stringify(item),
-            headers:{
-                "Content-Type":'application/json',
-                "Accept":'application/json',
-                'Authorization': "Bearer " + jwttoken,
-                'X-Requested-With':'XMLHttpRequest',
-            }
-        });
-
-        result= await result.json();
+    const gpartner = async (search) =>{
+        let result = enduser.filter(item => item.name.toLowerCase().includes(search.toLowerCase())).slice(0, 10);
         sclist(result);
     }
 
@@ -31,8 +19,8 @@ function Companyname({sc_cname}){
         sshowdropdown(false);
     }
 
-    const inputtext = () =>{        
-        gpartner('enduser',cname);
+    const inputtext = () =>{
+        gpartner(cname);
         sshowdropdown(true);
     }
 
@@ -44,12 +32,29 @@ function Companyname({sc_cname}){
     const txt_input = (e) =>{
         scname(e.target.value);
         sc_cname(e.target.value);
-        gpartner('enduser',e.target.value);
+        gpartner(e.target.value);
+    }
+
+    const [dis_cname,sdis_cname] = useState(false);
+    const [enduser,senduser] = useState([]);
+    const enduserlist = async () =>{
+        sdis_cname(true);
+        let result=  await fetch("http://"+local_host+"/api/auth/enduserlist",{
+            method: 'GET',
+            headers:{
+                'Authorization': "Bearer " + jwttoken,
+                'X-Requested-With':'XMLHttpRequest',
+            }
+        });
+
+        result = await result.json();
+        senduser(result);
+        sdis_cname(false);
     }
 
 
-
     useEffect(()=>{
+        enduserlist();
         const concernedElement = document.querySelector(".textdropdown");
 
         document.addEventListener("mousedown", (e) => {
@@ -61,10 +66,13 @@ function Companyname({sc_cname}){
         });
     },[]);
 
+
+
+
     return(
         <div className="form-group mt-5 textdropdown">
             <label>Company Name</label>
-            <input value={cname}  onFocus={inputtext} onChange = {txt_input} type="text" className="form-control" placeholder="Enter Company Name" required/>
+            <input disabled={dis_cname} value={cname}  onFocus={inputtext} onChange = {txt_input} type="text" className="form-control" placeholder="Enter Company Name" required/>
             {
                 showdropdown &&
                     <div className="dropdown1">

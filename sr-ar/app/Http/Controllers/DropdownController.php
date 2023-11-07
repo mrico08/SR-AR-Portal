@@ -22,6 +22,24 @@ class DropdownController extends Controller
         return response($d->get('name'));    
     }
 
+    public function enduserlist(){
+        $d = Dropdown :: where([
+            ['type','=','enduser'],
+            ['status','=',0],
+        ]);
+        
+        return response($d->get('name'));
+    }
+
+    public function partnerlist(){
+        $d = Dropdown :: where([
+            ['type','=','partner'],
+            ['status','=',0],
+        ]);
+        
+        return response($d->get('name'));       
+    }
+
     public function selist(){
         $u = DB :: table('users')
         ->where('verified','=',1)

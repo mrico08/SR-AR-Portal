@@ -110,7 +110,7 @@ Route::group([
     Route::post('a_report',[ActionController::class,'approvereport']);
     Route::post('c_report',[ActionController::class,'cancel_report']);
 });
-
+ 
 // DropdownController
 Route::group([
     'middleware' => 'api',
@@ -122,6 +122,8 @@ Route::group([
     Route::post('addcategory',[DropdownController::class,'addcategory']);
     Route::post('action',[DropdownController::class,'action']);
     Route::post('change_password',[AuthController::class,'change_password']);
+    Route::get('enduserlist',[DropdownController::class,'enduserlist']);
+    Route::get('partnerlist',[DropdownController::class,'partnerlist']);
 });
 
 // Dashboard
